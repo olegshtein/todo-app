@@ -1,0 +1,9 @@
+:root {
+  --container-max-width: 1280px;
+  --container-padding-x: 24px;
+
+  --font-family-base: "Caveat";
+  --font-size-min: 1.75rem;
+  --font-size-val: 6vw;
+  --font-size-max: 4rem;
+}

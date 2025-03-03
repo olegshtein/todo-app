@@ -1,14 +1,16 @@
 import React from 'react'
-import TaskList from './components/TaskList/TaskList'
-import 'normalize.css'
-import './styles/global.css'
+import Section from './components/Section'
+import TaskList from './components/TaskList'
+import './styles'
 
 const App = () => {
   return (
     <div className="App">
-      <form>
-        <TaskList />
-      </form>
+      <Section>
+        <form>
+          <TaskList />
+        </form>
+      </Section>
     </div>
   );
 }

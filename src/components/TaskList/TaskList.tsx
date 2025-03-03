@@ -1,4 +1,4 @@
-import TaskListItem from './TaskItem/TaskListItem'
+import TaskListItem from './TaskListItem'
 import styles from './TaskList.module.css'
 
 const TaskList = () => {
