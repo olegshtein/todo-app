@@ -1,4 +1,4 @@
-import 'normalize.css'
+import '@a1rth/css-normalize/index.css'
 import './fonts.css'
 import './variables.css'
 import './utils.css'

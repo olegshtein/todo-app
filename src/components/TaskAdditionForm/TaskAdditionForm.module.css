@@ -1,0 +1,47 @@
+.form {
+  --button-width: 102px;
+
+  display: flex;
+}
+
+.formDescriptionLabel,
+.formDescriptionInput {
+  width: 100%;
+}
+
+.formDescriptionLabel {
+  display: block;
+}
+
+.formDescriptionInput {
+  --inset-x: 28px;
+
+  padding-inline: var(--inset-x) calc(var(--button-width) + var(--inset-x));
+  border: none;
+  border-radius: 100px;
+  background-color: var(--silver);
+}
+
+.formButton {
+  width: var(--button-width);
+  margin-left: calc(var(--button-width) * -1);
+  border: none;
+  border-radius: 50%;
+  background-color: var(--green);
+}
+
+@media (width <= 1440px) {
+  .formButton {
+    --button-width: 78px;
+  }
+}
+
+@media (width <= 767px) {
+  .formButton {
+    --button-width: 54px;
+  }
+}
+
+.formButton::before {
+  content: "+";
+}

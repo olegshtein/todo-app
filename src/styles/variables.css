@@ -1,9 +1,23 @@
 :root {
+  --green: #32cd32;
+  --silver: #c0c0c0;
+
   --container-max-width: 1280px;
   --container-padding-x: 24px;
+  --container-padding-y: 15vh;
 
   --font-family-base: "Caveat";
-  --font-size-min: 1.75rem;
-  --font-size-val: 6vw;
-  --font-size-max: 4rem;
+  --font-size: 4rem;
+}
+
+@media (width <= 1440px) {
+  :root {
+    --font-size: 3rem;
+  }
+}
+
+@media (width <= 767px) {
+  :root {
+    --font-size: 2rem;
+  }
 }

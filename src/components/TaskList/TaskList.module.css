@@ -1,4 +1,11 @@
 .taskList {
-  width: 500px;
-  background: #000;
+  display: grid;
+  row-gap: 16px;
+  margin-top: 96px;
+}
+
+.taskListItem {
+  padding: 24px;
+  border-radius: 7px;
+  background-color: var(--silver);
 }
