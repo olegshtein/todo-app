@@ -1,8 +1,9 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 // Тип для задачи
 interface Task {
-  id: number;
+  id: string;
   description: string;
 }
 
@@ -10,6 +11,7 @@ interface Task {
 interface AppContextType {
   tasks: Task[];
   addTask: (description: string) => void;
+  removeTask: (id: string) => void;
   inputValue: string; // Текущее значение инпута
   setInputValue: (value: string) => void; // Функция для обновления значения инпута
 }
@@ -18,6 +20,7 @@ interface AppContextType {
 const AppContext = createContext<AppContextType>({
   tasks: [],
   addTask: () => {},
+  removeTask: () => {},
   inputValue: '', // Начальное значение инпута
   setInputValue: () => {}, // Заглушка для функции
 })
@@ -32,23 +35,29 @@ export const useAppContext = () => useContext(AppContext)
 
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
   const [tasks, setTasks] = useState<Task[]>([
-    { id: 1, description: 'Задача 1' },
-    { id: 2, description: 'Задача 2' },
+    { id: uuidv4(), description: 'Задача 1' },
+    { id: uuidv4(), description: 'Задача 2' },
   ]);
 
   const [inputValue, setInputValue] = useState(''); // Состояние для значения инпута
 
   const addTask = (description: string) => {
     const newTask: Task = {
-      id: tasks.length + 1, // Генерация id (простой пример)
+      id: uuidv4(), // Генерация id (простой пример)
       description,
     };
     setTasks((prevTasks) => [newTask, ...prevTasks]);
     setInputValue(''); // Очищаем инпут после добавления задачи
   };
 
+  const removeTask = (id: string) => {
+    setTasks(
+      tasks.filter((task) => task.id !== id)
+    )
+  }
+
   return (
-    <AppContext.Provider value={{ tasks, addTask, inputValue, setInputValue }}>
+    <AppContext.Provider value={{ tasks, addTask, removeTask, inputValue, setInputValue }}>
       {children}
     </AppContext.Provider>
   );

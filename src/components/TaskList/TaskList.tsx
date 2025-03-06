@@ -8,7 +8,7 @@ const TaskList = () => {
   return (
     <ul className={styles.taskList}>
       {tasks.map(({ id, description }) => (
-        <TaskListItem key={id}>
+        <TaskListItem key={id} id={id}>
           {description}
         </TaskListItem>
       ))}

@@ -12,6 +12,10 @@
   margin-right: auto;
 }
 
+.task.isCompleted .description {
+  text-decoration: line-through;
+}
+
 .lineThroughCheckbox {
   appearance: none;
   margin: 0;
