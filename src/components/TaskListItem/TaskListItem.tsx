@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import classNames from 'classnames'
 import styles from './TaskListItem.module.css'
-import {useAppContext} from '@/context/AppContext';
+import { useAppContext } from '@/context/AppContext'
 
 const TaskListItem = (props: { children: any, id: string }) => {
   const { removeTask } = useAppContext()
