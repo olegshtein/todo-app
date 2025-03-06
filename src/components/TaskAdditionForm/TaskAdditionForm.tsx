@@ -1,6 +1,6 @@
 import styles from './TaskAdditionForm.module.css'
 import React from 'react'
-import { useAppContext } from '../../context/AppContext'
+import { useAppContext } from '@/context/AppContext'
 
 const TaskAdditionForm = () => {
   const { inputValue, setInputValue, addTask } = useAppContext()

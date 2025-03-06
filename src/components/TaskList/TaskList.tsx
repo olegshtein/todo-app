@@ -1,6 +1,6 @@
-import TaskListItem from '../TaskListItem'
+import TaskListItem from '@/components/TaskListItem'
 import styles from './TaskList.module.css'
-import { useAppContext } from '../../context/AppContext'
+import { useAppContext } from '@/context/AppContext'
 
 const TaskList = () => {
   const { tasks } = useAppContext()
