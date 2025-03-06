@@ -1,20 +1,17 @@
-import Task from '../Task'
+import TaskListItem from '../TaskListItem'
 import styles from './TaskList.module.css'
+import { useAppContext } from '../../context/AppContext'
 
 const TaskList = () => {
+  const { tasks } = useAppContext()
 
   return (
     <ul className={styles.taskList}>
-      <li className={styles.taskListItem}>
-        <Task>
-          Задача 2
-        </Task>
-      </li>
-      <li className={styles.taskListItem}>
-        <Task>
-          Задача 1
-        </Task>
-      </li>
+      {tasks.map(({ id, description }) => (
+        <TaskListItem key={id}>
+          {description}
+        </TaskListItem>
+      ))}
     </ul>
   )
 }
