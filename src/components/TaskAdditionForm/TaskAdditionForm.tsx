@@ -7,13 +7,11 @@ const TaskAdditionForm = () => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
-  };
+  }
 
   const onClick = () => {
-    if (inputValue.trim()) {
-      addTask(inputValue)
-    }
-  };
+    addTask(inputValue)
+  }
 
   return (
     <form

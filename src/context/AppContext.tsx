@@ -44,6 +44,10 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
   }, [tasks])
 
   const addTask = (description: string) => {
+    if (!inputValue.trim()) {
+      return
+    }
+
     const newTask: Task = {
       id: uuidv4(),
       description,
