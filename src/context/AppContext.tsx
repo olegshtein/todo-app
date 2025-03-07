@@ -1,54 +1,57 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react'
+import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-// Тип для задачи
 interface Task {
   id: string;
   description: string;
+  isCompleted: boolean;
 }
 
-// Тип для контекста
 interface AppContextType {
   tasks: Task[];
   addTask: (description: string) => void;
   removeTask: (id: string) => void;
-  inputValue: string; // Текущее значение инпута
-  setInputValue: (value: string) => void; // Функция для обновления значения инпута
+  toggleIsCompleted: (id: string) => void;
+  inputValue: string;
+  setInputValue: (value: string) => void;
 }
 
-// Создаем контекст с начальным значением
 const AppContext = createContext<AppContextType>({
   tasks: [],
   addTask: () => {},
   removeTask: () => {},
-  inputValue: '', // Начальное значение инпута
-  setInputValue: () => {}, // Заглушка для функции
+  toggleIsCompleted: () => {},
+  inputValue: '',
+  setInputValue: () => {},
 })
 
-// Компонент-провайдер (управляет состоянием)
 interface AppContextProviderProps {
   children: ReactNode;
 }
 
-// Создаем кастомный хук для удобства использования и экспортируем его
 export const useAppContext = () => useContext(AppContext)
 
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: uuidv4(), description: 'Задача 1' },
-    { id: uuidv4(), description: 'Задача 2' },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    const savedTasks = localStorage.getItem('tasks')
+    return savedTasks ? JSON.parse(savedTasks) : []
+  })
 
-  const [inputValue, setInputValue] = useState(''); // Состояние для значения инпута
+  const [inputValue, setInputValue] = useState('')
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }, [tasks])
 
   const addTask = (description: string) => {
     const newTask: Task = {
-      id: uuidv4(), // Генерация id (простой пример)
+      id: uuidv4(),
       description,
-    };
-    setTasks((prevTasks) => [newTask, ...prevTasks]);
-    setInputValue(''); // Очищаем инпут после добавления задачи
-  };
+      isCompleted: false,
+    }
+    setTasks((prevTasks) => [newTask, ...prevTasks])
+    setInputValue('')
+  }
 
   const removeTask = (id: string) => {
     setTasks(
@@ -56,9 +59,15 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
     )
   }
 
+  const toggleIsCompleted = (id: string) => {
+    setTasks(
+      tasks.map((task) => task.id === id ? { ...task, isCompleted: !task.isCompleted } : task)
+    )
+  }
+
   return (
-    <AppContext.Provider value={{ tasks, addTask, removeTask, inputValue, setInputValue }}>
+    <AppContext.Provider value={{ tasks, addTask, removeTask, toggleIsCompleted, inputValue, setInputValue }}>
       {children}
     </AppContext.Provider>
-  );
-};
+  )
+}

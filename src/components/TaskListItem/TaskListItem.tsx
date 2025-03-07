@@ -1,19 +1,17 @@
-import { useState } from 'react'
 import classNames from 'classnames'
-import styles from './TaskListItem.module.css'
 import { useAppContext } from '@/context/AppContext'
+import styles from './TaskListItem.module.css'
 
-const TaskListItem = (props: { children: any, id: string }) => {
-  const { removeTask } = useAppContext()
+const TaskListItem = (props: { children: any, isCompleted: boolean, id: string }) => {
+  const { removeTask, toggleIsCompleted } = useAppContext()
   const {
     id,
+    isCompleted,
     children,
   } = props
 
-  const [isChecked, setIsChecked] = useState(false)
-
   const onChange = () => {
-    setIsChecked(!isChecked)
+    toggleIsCompleted(id)
   }
 
   const onClick = () => {
@@ -22,7 +20,7 @@ const TaskListItem = (props: { children: any, id: string }) => {
 
   return (
     <li
-      className={classNames(styles.task, { [styles.isCompleted]: isChecked })}
+      className={classNames(styles.task, { [styles.isCompleted]: isCompleted })}
       id={id}
     >
       <p className={styles.description}>{children}</p>
@@ -32,7 +30,7 @@ const TaskListItem = (props: { children: any, id: string }) => {
           className={styles.lineThroughCheckbox}
           type="checkbox"
           name="status"
-          checked={isChecked}
+          checked={isCompleted}
           onChange={onChange}
         />
       </label>
