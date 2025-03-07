@@ -9,13 +9,15 @@ const TaskAdditionForm = () => {
     setInputValue(e.target.value)
   }
 
-  const onClick = () => {
+  const onSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault()
     addTask(inputValue)
   }
 
   return (
     <form
       className={styles.form}
+      onSubmit={onSubmit}
     >
       <label className={styles.formDescriptionLabel} htmlFor="task-description">
         <input
@@ -28,8 +30,7 @@ const TaskAdditionForm = () => {
       </label>
       <button
         className={styles.formButton}
-        type="button"
-        onClick={onClick}
+        type="submit"
       >
         <span className="visually-hidden">Добавить задачу</span>
       </button>
